@@ -1,33 +1,28 @@
 # Vendor-Quotation-Comparison-System
 
+A comprehensive Odoo module for managing vendor quotations and comparing them to find the best vendor for your procurement needs.
+
+## Workflow Overview
+
+```
 Vendor Management
-
-↓
-
+       ↓
 Product Selection
-
-↓
-
+       ↓
 Vendor submits quotation
-
-↓
-
+       ↓
 Compare quotations
-
-↓
-
+       ↓
 Recommend Best Vendor
-
-↓
-
+       ↓
 Approve Quotation
-
-↓
-
+       ↓
 Generate Purchase Summary
+```
 
+## Project Structure
 
-Project Structure
+```
 vendor_quotation_management/
 │
 ├── __init__.py
@@ -54,122 +49,77 @@ vendor_quotation_management/
 └── static/
     └── description/
         └── icon.png
-Database Models
+```
 
-Instead of creating our own vendor table, we'll reuse Odoo's existing models.
+## Database Models
 
-Existing Odoo Models
-res.partner      → Vendor
+### Existing Odoo Models (Reused)
 
-product.product  → Product
+Instead of creating our own vendor table, we reuse Odoo's existing models:
 
-res.currency     → Currency
+| Model | Purpose |
+|-------|---------|
+| `res.partner` | Vendor |
+| `product.product` | Product |
+| `res.currency` | Currency |
+| `res.users` | Employee |
 
-res.users        → Employee
+*This is how professional Odoo developers work.*
 
-This is how professional Odoo developers work.
+### New Models
 
-New Model
-vendor.quotation
+#### vendor.quotation
 
-Fields
+**Fields:**
+- Quotation Number
+- Vendor
+- Product
+- Quantity
+- Unit Price
+- Delivery Days
+- Warranty
+- Status
+- Quotation Date
+- Total Amount
 
-Quotation Number
+#### quotation.comparison
 
-Vendor
+**Fields:**
+- Product
+- Best Vendor
+- Lowest Price
+- Highest Price
+- Average Price
+- Savings
 
-Product
+## Example Workflow
 
-Quantity
+### Scenario: Laptop Procurement
 
-Unit Price
+| Vendor | Product | Price |
+|--------|---------|-------|
+| Vendor A | Laptop | ₹52,000 |
+| Vendor B | Laptop | ₹49,500 |
+| Vendor C | Laptop | ₹50,000 |
 
-Delivery Days
+**Process:**
+1. Compare quotations from all vendors
+2. Recommend Vendor B (lowest price)
+3. Approve the quotation
+4. Generate Purchase Report
 
-Warranty
+## Business Logic
 
-Status
+The comparison model automatically calculates:
 
-Quotation Date
+- **Minimum Price** - Lowest quoted price
+- **Maximum Price** - Highest quoted price
+- **Average Price** - Mean of all quotations
+- **Savings** - Amount saved by selecting best vendor
+- **Recommended Vendor** - Best option based on criteria
 
-Total Amount
-Another Model
-quotation.comparison
+All calculations are performed using Odoo ORM for reliable and efficient processing.
 
-Stores
+---
 
-Product
-
-Best Vendor
-
-Lowest Price
-
-Highest Price
-
-Average Price
-
-Savings
-Workflow
-Vendor A
-
-↓
-
-Laptop
-
-↓
-
-₹52,000
-
-
-Vendor B
-
-↓
-
-Laptop
-
-↓
-
-₹49,500
-
-
-Vendor C
-
-↓
-
-Laptop
-
-↓
-
-₹50,000
-
-
-↓
-
-Compare
-
-↓
-
-Recommend Vendor B
-
-↓
-
-Approve
-
-↓
-
-Generate Purchase Report
-Business Logic
-
-The comparison model will calculate
-
-Minimum Price
-
-Maximum Price
-
-Average Price
-
-Savings
-
-Recommended Vendor
-
-using Odoo ORM.
+*For more information on Odoo development, visit the [official Odoo documentation](https://www.odoo.com/documentation)*
